@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0552DD17C2FAF90066264D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0552DC17C2FAF90066264D /* CoreData.framework */; };
+		2B0552E017C2FB970066264D /* Homepwner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B0552DE17C2FB970066264D /* Homepwner.xcdatamodeld */; };
 		2B1E124E176E6396007D6200 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E124D176E6396007D6200 /* DetailViewController.m */; };
 		2B1E1250176E63BD007D6200 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1E124F176E63BD007D6200 /* DetailView.xib */; };
 		2B92E7BA177517AA00232B5C /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B92E7B9177517AA00232B5C /* ImageViewController.m */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B0552DC17C2FAF90066264D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2B0552DF17C2FB970066264D /* Homepwner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Homepwner.xcdatamodel; sourceTree = "<group>"; };
 		2B1E124C176E6396007D6200 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		2B1E124D176E6396007D6200 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		2B1E124F176E63BD007D6200 /* DetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailView.xib; sourceTree = "<group>"; };
@@ -66,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0552DD17C2FAF90066264D /* CoreData.framework in Frameworks */,
 				2BBE4DB0176D46CF00089BBC /* UIKit.framework in Frameworks */,
 				2BBE4DB2176D46CF00089BBC /* Foundation.framework in Frameworks */,
 				2BBE4DB4176D46CF00089BBC /* CoreGraphics.framework in Frameworks */,
@@ -95,6 +100,7 @@
 		2BBE4DAE176D46CF00089BBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B0552DC17C2FAF90066264D /* CoreData.framework */,
 				2BBE4DAF176D46CF00089BBC /* UIKit.framework */,
 				2BBE4DB1176D46CF00089BBC /* Foundation.framework */,
 				2BBE4DB3176D46CF00089BBC /* CoreGraphics.framework */,
@@ -125,6 +131,7 @@
 				2B92E7B9177517AA00232B5C /* ImageViewController.m */,
 				2B92E7BB1775181400232B5C /* ImageView.xib */,
 				2BBE4DB6176D46CF00089BBC /* Supporting Files */,
+				2B0552DE17C2FB970066264D /* Homepwner.xcdatamodeld */,
 			);
 			path = Homepwner;
 			sourceTree = "<group>";
@@ -220,6 +227,7 @@
 				2BDD2F89176E85A00052148F /* ImageStore.m in Sources */,
 				2BEAFEDF1773BFB700D7897A /* ItemCell.m in Sources */,
 				2B92E7BA177517AA00232B5C /* ImageViewController.m in Sources */,
+				2B0552E017C2FB970066264D /* Homepwner.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +349,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2B0552DE17C2FB970066264D /* Homepwner.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2B0552DF17C2FB970066264D /* Homepwner.xcdatamodel */,
+			);
+			currentVersion = 2B0552DF17C2FB970066264D /* Homepwner.xcdatamodel */;
+			path = Homepwner.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2BBE4DA4176D46CF00089BBC /* Project object */;
 }
