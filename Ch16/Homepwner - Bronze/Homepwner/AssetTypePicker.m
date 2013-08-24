@@ -75,7 +75,14 @@
     NSArray *allAssets = [[ItemStore sharedStore] allAssetTypes];
     NSManagedObject *assetType = allAssets[indexPath.row];
     self.item.assetType = assetType;
-    [self.navigationController popViewControllerAnimated: YES];
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        [self.delegate didSelectItem: self];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated: YES];
+    }
+
 }
 
 @end

@@ -10,7 +10,6 @@
 #import "ImageStore.h"
 #import "Item.h"
 #import "ItemStore.h"
-#import "AssetTypePicker.h"
 
 @implementation DetailViewController
 
@@ -110,10 +109,22 @@
 {
     [self.view endEditing: YES];
     AssetTypePicker *assetTypePicker = [[AssetTypePicker alloc] init];
+    assetTypePicker.delegate = self;
     assetTypePicker.item = self.item;
-    [self.navigationController pushViewController: assetTypePicker
-                                         animated: YES];
     
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        self.assetPopover = [[UIPopoverController alloc] initWithContentViewController: assetTypePicker];
+        self.assetPopover.delegate = self;
+        [self.assetPopover presentPopoverFromRect: self.assetTypeButton.bounds
+                                           inView: self.view
+                         permittedArrowDirections: UIPopoverArrowDirectionAny
+                                         animated: YES];
+    }
+    else {
+        [self.navigationController pushViewController: assetTypePicker
+                                             animated: YES];
+        
+    }
 }
 
 
@@ -122,6 +133,15 @@
     [self.view endEditing: YES];
 }
 
+#pragma mark - AssetTypePickerDelegate
+
+- (void)didSelectItem: (AssetTypePicker *)assetPicker;
+{
+    NSString *assetType = [self.item.assetType valueForKey: @"label"];
+    [self.assetTypeButton setTitle: assetType forState: UIControlStateNormal];
+    [self.assetPopover dismissPopoverAnimated: YES];
+    self.assetPopover = nil;
+}
 
 #pragma mark - UIImagePickerControllerDelegate
 
@@ -184,8 +204,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    NSLog(@"Monster's are bad mmmkAAAAY?");
+    NSLog(@"Popover dismissed");
     self.imagePickerPopover = nil;
+    self.assetPopover = nil;
 }
 
 #pragma mark - UIViewController Lifecycle

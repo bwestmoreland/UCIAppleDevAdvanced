@@ -5,10 +5,12 @@
 //  Created by Brent Westmoreland on 6/16/13.
 //  Copyright (c) 2013 Brent Westmoreland. All rights reserved.
 //
+#import "AssetTypePicker.h"
+
 @class Item;
 
 @interface DetailViewController : UIViewController
-<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIPopoverControllerDelegate>
+<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIPopoverControllerDelegate, AssetTypePickerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *serialField;
@@ -18,7 +20,7 @@
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
 @property (copy, nonatomic) void (^dismissBlock)(void);
 @property (weak, nonatomic) IBOutlet UIButton *assetTypeButton;
-
+@property (strong, nonatomic) UIPopoverController *assetPopover;
 
 @property (strong, nonatomic) Item *item;
 
