@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIPopoverController *imagePickerPopover;
 @property (copy, nonatomic) void (^dismissBlock)(void);
+@property (weak, nonatomic) IBOutlet UIButton *assetTypeButton;
 
 
 @property (strong, nonatomic) Item *item;
@@ -25,5 +26,6 @@
 
 - (IBAction)takePicture:(UIBarButtonItem *)sender;
 - (IBAction)deletePicture:(UIBarButtonItem *)sender;
+- (IBAction)showAssetTypePicker:(UIButton *)sender;
 
 @end

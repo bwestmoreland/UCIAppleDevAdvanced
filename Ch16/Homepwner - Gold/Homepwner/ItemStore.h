@@ -20,5 +20,6 @@
 
 - (NSString *)itemArchivePath;
 - (BOOL)saveChanges;
+- (NSArray *)allAssetTypes;
 
 @end

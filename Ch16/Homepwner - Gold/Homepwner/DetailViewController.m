@@ -10,6 +10,7 @@
 #import "ImageStore.h"
 #import "Item.h"
 #import "ItemStore.h"
+#import "AssetTypePicker.h"
 
 @implementation DetailViewController
 
@@ -105,7 +106,16 @@
     }
 }
 
-//Silver Challenge
+- (IBAction)showAssetTypePicker:(UIButton *)sender
+{
+    [self.view endEditing: YES];
+    AssetTypePicker *assetTypePicker = [[AssetTypePicker alloc] init];
+    assetTypePicker.item = self.item;
+    [self.navigationController pushViewController: assetTypePicker
+                                         animated: YES];
+    
+}
+
 
 - (void)dismissKeyboard
 {
@@ -213,7 +223,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     dateFormatter.timeStyle = NSDateFormatterNoStyle;
     
-    self.dateLabel.text = [dateFormatter stringFromDate: self.item.dateCreated];
+    NSDate *dateCreated = [NSDate dateWithTimeIntervalSinceReferenceDate: self.item.dateCreated];
+    
+    self.dateLabel.text = [dateFormatter stringFromDate: dateCreated];
     
     if (self.item.imageKey) {
         UIImage *image = [[ImageStore sharedStore] imageForKey: self.item.imageKey];
@@ -222,6 +234,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     else {
         self.imageView.image = nil;
     }
+    
+    NSString *typeLabel = [self.item.assetType valueForKey: @"label"];
+    if (!typeLabel){
+        typeLabel = @"None";
+    }
+    [self.assetTypeButton setTitle: [NSString stringWithFormat:@"Title: %@", typeLabel]
+                          forState: UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -236,4 +255,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     self.item.valueInDollars = [self.valueField.text intValue];
 }
 
+- (void)viewDidUnload {
+    [self setAssetTypeButton:nil];
+    [super viewDidUnload];
+}
 @end
