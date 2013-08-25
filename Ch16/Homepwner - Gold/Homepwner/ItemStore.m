@@ -136,6 +136,25 @@
     }
 }
 
+- (NSArray *)itemsOfAssetType: (NSString *)type
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [[_model entitiesByName] objectForKey:@"Item"];
+    [request setEntity:entity];
+    
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"assetType.label == %@", type];
+    [request setPredicate:predicate];
+    
+    NSError *error;
+    NSArray *results = [_context executeFetchRequest:request error:&error];
+    if (!results) {
+        [NSException raise: @"Fetch failed"
+                    format: @"Reason: %@", [error localizedDescription]];
+    }
+    return [results copy];   
+}
+
 - (NSArray *)allItems
 {
     return [_allItems copy];

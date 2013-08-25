@@ -14,6 +14,7 @@
 @interface AssetTypePicker()
 
 @property (nonatomic, strong) Class cellClass;
+@property (nonatomic, strong) NSArray *filteredItems;
 
 @end
 
@@ -32,6 +33,14 @@
 - (Class)cellClass
 {
     return [UITableViewCell class];
+}
+
+- (NSArray *)filteredItems
+{
+    if (!_filteredItems) {
+        _filteredItems = [[ItemStore sharedStore] itemsOfAssetType: [self.item.assetType valueForKey: @"label"]];
+    }
+    return _filteredItems;
 }
 
 - (void)viewDidLoad
@@ -64,18 +73,30 @@
     
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+#pragma - mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[[ItemStore sharedStore] allAssetTypes] count];
+    return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: NSStringFromClass(self.cellClass)
-                                                forIndexPath: indexPath];
-    
+    NSInteger count = 0;
+    if (section == 0){
+        count = [[[ItemStore sharedStore] allAssetTypes] count];
+    }
+    else {
+        count = self.filteredItems.count;
+    }
+    return count;
+}
+
+
+- (void)configureCell:(UITableViewCell *)cell forFirstSectionUsingRow:(NSInteger)row
+{
     NSArray *allAssets = [[ItemStore sharedStore] allAssetTypes];
-    NSManagedObject *assetType = allAssets[indexPath.row];
+    NSManagedObject *assetType = allAssets[row];
     
     NSString *assetLabel = [assetType valueForKey: @"label"];
     cell.textLabel.text = assetLabel;
@@ -86,9 +107,29 @@
     else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+}
+
+- (void)configureCell:(UITableViewCell *)cell forSecondSectionUsingRow:(NSInteger)row
+{
+    Item *item = self.filteredItems[row];
+    cell.textLabel.text = item.itemName;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: NSStringFromClass(self.cellClass)
+                                                forIndexPath: indexPath];
+    if (indexPath.section == 0){
+        [self configureCell: cell forFirstSectionUsingRow: indexPath.row];
+    }
+    else {
+        [self configureCell: cell forSecondSectionUsingRow: indexPath.row];
+    }
     
     return cell;
 }
+
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -105,7 +146,7 @@
     else {
         [self.navigationController popViewControllerAnimated: YES];
     }
-
+    [tableView reloadData];
 }
 
 @end
