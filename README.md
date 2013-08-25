@@ -25,3 +25,7 @@ In order to run the tests for these assignments it's likely one will need cocoap
 Homework Week 1 Added
 ---------------------
 - Ch16 Big Nerd Ranch Guide
+
+Homework Week 2 Added
+---------------------
+- Ch17 Big Nerd Ranch Guide
