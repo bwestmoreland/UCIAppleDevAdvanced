@@ -9,11 +9,7 @@
 #import "WhereamiViewController.h"
 #import "MapPoint.h"
 
-typedef enum {
-    kMapTypeStandard = 0,
-    kMapTypeSatellite,
-    kMapTypeHybrid
-} kMapType;
+NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
 
 @interface WhereamiViewController()
 
@@ -24,6 +20,12 @@ typedef enum {
 @synthesize activityIndicatorView = _activityIndicatorView;
 @synthesize locationTitleField = _locationTitleField;
 @synthesize worldView = _worldView;
+
++ (void)initialize
+{
+    NSDictionary *defaults = @{ WhereAmIMapTypePrefKey: [NSNumber numberWithInt: 1] };
+    [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,8 +56,6 @@ typedef enum {
     
     self.locationTitleField.hidden = YES;
 }
-
-//Ch05 Gold Challenge
 
 - (NSString *)dateToday
 {
@@ -95,32 +95,28 @@ typedef enum {
     [self.locationManager stopUpdatingLocation];
 }
 
-
-//Ch05 Silver Challenge
-
 -(void)mapTypeChanged:(UISegmentedControl *)sender
 {
     NSParameterAssert(sender.selectedSegmentIndex >= 0);
     NSParameterAssert(sender.selectedSegmentIndex < 3);
+    
+    [[NSUserDefaults standardUserDefaults] setInteger: [sender selectedSegmentIndex]
+                                               forKey: WhereAmIMapTypePrefKey];
 
-    if (sender.selectedSegmentIndex == kMapTypeStandard ){
-
-//Ch05 Bronze Challenge
-        self.worldView.mapType = MKMapTypeStandard;
-    }
-    else if (sender.selectedSegmentIndex == kMapTypeSatellite){
-        self.worldView.mapType = MKMapTypeSatellite;
-    }
-    else {
-        self.worldView.mapType = MKMapTypeHybrid;
-    }
+    self.worldView.mapType = sender.selectedSegmentIndex;
 }
 
 #pragma mark UIViewController lifecycle
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     [self configureWorldView];
+    
+    NSInteger mapTypeValue = [[NSUserDefaults standardUserDefaults] integerForKey: WhereAmIMapTypePrefKey];
+    
+    [self.mapTypeSegmentedControl setSelectedSegmentIndex: mapTypeValue];
+    [self mapTypeChanged: self.mapTypeSegmentedControl];
 }
 
 - (void)nilUnsafeUnretainedObjects
@@ -159,7 +155,6 @@ typedef enum {
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
-//    DLog(@"iOS6: %@", locations);
     [self didUpdateLocation:locations[0]];
 }
 
@@ -171,7 +166,6 @@ typedef enum {
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    DLog(@"iOS5: %@", newLocation);
     [self didUpdateLocation: newLocation];
 }
 
