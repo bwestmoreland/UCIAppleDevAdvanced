@@ -33,3 +33,4 @@ Homework Week 2 Added
 - Bronze challenge German Language Added (That's all there was)
 - Ch18 Big Nerd Ranch Guide
 - Ch18 Silver Challenge
+- Ch18 Gold Challenge
