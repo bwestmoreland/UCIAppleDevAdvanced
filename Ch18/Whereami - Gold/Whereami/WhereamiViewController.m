@@ -23,16 +23,6 @@ NSString *const WhereAmILongitudePrefKey = @"WhereAmILongitudePrefKey";
 @synthesize locationTitleField = _locationTitleField;
 @synthesize worldView = _worldView;
 
-+ (void)saveToDefaultsWithLatitude:(CLLocationDegrees)latitude andLongitude:(CLLocationDegrees)longitude
-{
-    DLog(@"Saving to defaults: %f, %f", latitude, longitude);
-    [[NSUserDefaults standardUserDefaults] setDouble: latitude
-                                              forKey: WhereAmILatitudePrefKey];
-    
-    [[NSUserDefaults standardUserDefaults] setDouble: longitude
-                                              forKey: WhereAmILongitudePrefKey];
-}
-
 + (void)initialize
 {
     NSDictionary *maptype = @{ WhereAmIMapTypePrefKey: [NSNumber numberWithInt: 1] };
@@ -41,9 +31,13 @@ NSString *const WhereAmILongitudePrefKey = @"WhereAmILongitudePrefKey";
     CLLocationDegrees latitude = 51.509980;
     CLLocationDegrees longitude = -0.133700;
     
-    NSDictionary *location = @{ WhereAmILatitudePrefKey: [NSNumber numberWithDouble: latitude],
-                                WhereAmILongitudePrefKey: [NSNumber numberWithDouble: longitude]};
-    [[NSUserDefaults standardUserDefaults] registerDefaults: location];
+    MapPoint *point = [NSKeyedUnarchiver unarchiveObjectWithFile: [MapPoint individualPointArchivePath]];
+    
+    if (!point) {
+        point =  [[MapPoint alloc] initWithCoordinate: CLLocationCoordinate2DMake(latitude, longitude)
+                                                title: @"London"];
+        [MapPoint savePoint: point];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,7 +54,7 @@ NSString *const WhereAmILongitudePrefKey = @"WhereAmILongitudePrefKey";
         if ([CLLocationManager headingAvailable]){
             [_locationManager startUpdatingHeading];
         }
-        NSString *path = [MapPoint pointArchivePath];
+        NSString *path = [MapPoint pointsArchivePath];
         
         [[self worldView] addAnnotations: [NSKeyedUnarchiver unarchiveObjectWithFile: path]];
     
@@ -99,12 +93,12 @@ NSString *const WhereAmILongitudePrefKey = @"WhereAmILongitudePrefKey";
 {
     CLLocationCoordinate2D coord = [loc coordinate];
     
-    [WhereamiViewController saveToDefaultsWithLatitude: coord.latitude andLongitude: coord.longitude];
     
     NSString *annotationTitle = [self.locationTitleField.text stringByAppendingFormat: @" - %@", [self dateToday]];
     
     MapPoint *point = [[MapPoint alloc] initWithCoordinate: coord
                                                      title: annotationTitle];
+    [MapPoint savePoint: point];
     
     [self.worldView addAnnotation: point];
     
@@ -144,12 +138,10 @@ NSString *const WhereAmILongitudePrefKey = @"WhereAmILongitudePrefKey";
     [self.mapTypeSegmentedControl setSelectedSegmentIndex: mapTypeValue];
     [self mapTypeChanged: self.mapTypeSegmentedControl];
     
-    CLLocationDegrees latitude = [[NSUserDefaults standardUserDefaults] doubleForKey: WhereAmILatitudePrefKey];
-    CLLocationDegrees longitude = [[NSUserDefaults standardUserDefaults] doubleForKey: WhereAmILongitudePrefKey];
+    NSString *path = [MapPoint individualPointArchivePath];
+    MapPoint *point = [NSKeyedUnarchiver unarchiveObjectWithFile: path];
     
-    CLLocation *location = [[CLLocation alloc] initWithLatitude: latitude longitude: longitude];
-    
-    [self zoomToPoint: location.coordinate];
+    [self zoomToPoint: point.coordinate];
 }
 
 - (void)nilUnsafeUnretainedObjects

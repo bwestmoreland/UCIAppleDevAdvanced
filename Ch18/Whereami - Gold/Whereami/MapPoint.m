@@ -31,7 +31,17 @@
     return self;
 }
 
-+ (NSString *)pointArchivePath
++ (NSString *)individualPointArchivePath
+{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                       NSUserDomainMask,
+                                                                       YES);
+    NSString *documentDirectory = documentDirectories[0];
+    
+    return [documentDirectory stringByAppendingPathComponent:@"individualPoint.archive"];
+}
+
++ (NSString *)pointsArchivePath
 {
     NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                                        NSUserDomainMask,
@@ -43,9 +53,17 @@
 
 + (BOOL)savePointsArray:(NSArray *)mapPoints
 {
-    NSString *path = [MapPoint pointArchivePath];
+    NSString *path = [MapPoint pointsArchivePath];
     
     return [NSKeyedArchiver archiveRootObject: mapPoints
+                                       toFile: path];
+}
+
++ (BOOL)savePoint:(MapPoint *)mapPoint
+{
+    NSString *path = [MapPoint individualPointArchivePath];
+    
+    return [NSKeyedArchiver archiveRootObject: mapPoint
                                        toFile: path];
 }
 

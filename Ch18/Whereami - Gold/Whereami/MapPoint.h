@@ -16,7 +16,9 @@
 - (id) initWithCoordinate: (CLLocationCoordinate2D)coordinate
                     title: (NSString *)title;
 
-+ (NSString *)pointArchivePath;
++ (NSString *)pointsArchivePath;
++ (NSString *)individualPointArchivePath;
 + (BOOL) savePointsArray: (NSArray *)mapPoints;
++ (BOOL) savePoint: (MapPoint *)point;
 
 @end
