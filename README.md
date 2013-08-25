@@ -25,7 +25,9 @@ In order to run the tests for these assignments it's likely one will need cocoap
 Homework Week 1 Added
 ---------------------
 - Ch16 Big Nerd Ranch Guide
+- Bronze, Silver, and Gold challenges
 
 Homework Week 2 Added
 ---------------------
 - Ch17 Big Nerd Ranch Guide
+- Bronze challenge German Language Added (That's all there was)
