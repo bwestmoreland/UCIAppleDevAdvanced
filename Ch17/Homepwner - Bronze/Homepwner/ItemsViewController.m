@@ -19,7 +19,7 @@
 - (id)init
 {
     if (self = [super initWithStyle: UITableViewStyleGrouped]) {
-        [self setTitle: @"Homepwner"];
+        [self setTitle: NSLocalizedString(@"Homepwner", @"The name of the application")];
         
         UIBarButtonItem *rightBarButton;
         
@@ -152,7 +152,10 @@ titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
     
     cell.valueLabel.textColor = (item.valueInDollars > 50) ? [UIColor greenColor] : [UIColor redColor];
     
-    cell.valueLabel.text = [NSString stringWithFormat:@"$%d", item.valueInDollars];
+    NSString *currencySymbol = [[NSLocale currentLocale] objectForKey: NSLocaleCurrencySymbol];
+    cell.valueLabel.text = [NSString stringWithFormat:@"%@%d", currencySymbol, item.valueInDollars];
+    
+    
     cell.thumbnailView.image = item.thumbnail;
     
     return cell;

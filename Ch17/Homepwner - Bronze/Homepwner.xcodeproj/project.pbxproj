@@ -10,7 +10,6 @@
 		2B0552DD17C2FAF90066264D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0552DC17C2FAF90066264D /* CoreData.framework */; };
 		2B0552E017C2FB970066264D /* Homepwner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B0552DE17C2FB970066264D /* Homepwner.xcdatamodeld */; };
 		2B1E124E176E6396007D6200 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E124D176E6396007D6200 /* DetailViewController.m */; };
-		2B1E1250176E63BD007D6200 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B1E124F176E63BD007D6200 /* DetailView.xib */; };
 		2B32FA6517C987C700F89E63 /* AddAssetTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B32FA6317C987C700F89E63 /* AddAssetTypeViewController.m */; };
 		2B32FA6617C987C700F89E63 /* AddAssetTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B32FA6417C987C700F89E63 /* AddAssetTypeViewController.xib */; };
 		2B5E5FCA17C91CB800F6C422 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5E5FC917C91CB800F6C422 /* Item.m */; };
@@ -29,6 +28,8 @@
 		2BBE4DCE176D47A300089BBC /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBE4DCD176D47A300089BBC /* ItemsViewController.m */; };
 		2BBE4DD4176D499600089BBC /* ItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBE4DD3176D499600089BBC /* ItemStore.m */; };
 		2BDD2F89176E85A00052148F /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDD2F88176E85A00052148F /* ImageStore.m */; };
+		2BE308E317CA6FE200385249 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE308E517CA6FE200385249 /* DetailView.xib */; };
+		2BE308EA17CA755D00385249 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BE308EC17CA755D00385249 /* Localizable.strings */; };
 		2BEAFEDF1773BFB700D7897A /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAFEDE1773BFB700D7897A /* ItemCell.m */; };
 		2BEAFEE31773C01800D7897A /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BEAFEE21773C01800D7897A /* ItemCell.xib */; };
 /* End PBXBuildFile section */
@@ -38,7 +39,6 @@
 		2B0552DF17C2FB970066264D /* Homepwner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Homepwner.xcdatamodel; sourceTree = "<group>"; };
 		2B1E124C176E6396007D6200 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		2B1E124D176E6396007D6200 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		2B1E124F176E63BD007D6200 /* DetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailView.xib; sourceTree = "<group>"; };
 		2B32FA6217C987C700F89E63 /* AddAssetTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAssetTypeViewController.h; sourceTree = "<group>"; };
 		2B32FA6317C987C700F89E63 /* AddAssetTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAssetTypeViewController.m; sourceTree = "<group>"; };
 		2B32FA6417C987C700F89E63 /* AddAssetTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAssetTypeViewController.xib; sourceTree = "<group>"; };
@@ -68,6 +68,14 @@
 		2BBE4DD3176D499600089BBC /* ItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemStore.m; sourceTree = "<group>"; };
 		2BDD2F87176E85A00052148F /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		2BDD2F88176E85A00052148F /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
+		2BE308E417CA6FE200385249 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/DetailView.xib; sourceTree = "<group>"; };
+		2BE308E617CA716F00385249 /* es */ = {isa = PBXFileReference; lastKnownFileType = file; name = es; path = es.lproj/DetailView.xib; sourceTree = "<group>"; };
+		2BE308E717CA716F00385249 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2BE308EB17CA755D00385249 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2BE308ED17CA756300385249 /* es */ = {isa = PBXFileReference; lastKnownFileType = file; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2BE308EE17CA75B600385249 /* de */ = {isa = PBXFileReference; lastKnownFileType = file; name = de; path = de.lproj/DetailView.xib; sourceTree = "<group>"; };
+		2BE308EF17CA75B600385249 /* de */ = {isa = PBXFileReference; lastKnownFileType = file; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2BE308F017CA75B600385249 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2BEAFEDD1773BFB700D7897A /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		2BEAFEDE1773BFB700D7897A /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		2BEAFEE21773C01800D7897A /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
@@ -125,7 +133,7 @@
 				2BBE4DCD176D47A300089BBC /* ItemsViewController.m */,
 				2B1E124C176E6396007D6200 /* DetailViewController.h */,
 				2B1E124D176E6396007D6200 /* DetailViewController.m */,
-				2B1E124F176E63BD007D6200 /* DetailView.xib */,
+				2BE308E517CA6FE200385249 /* DetailView.xib */,
 				2BBE4DD2176D499600089BBC /* ItemStore.h */,
 				2BBE4DD3176D499600089BBC /* ItemStore.m */,
 				2B5E5FCB17C9475400F6C422 /* AssetTypePicker.h */,
@@ -152,6 +160,7 @@
 		2BBE4DB6176D46CF00089BBC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2BE308EC17CA755D00385249 /* Localizable.strings */,
 				2BBE4DB7176D46CF00089BBC /* Homepwner-Info.plist */,
 				2BBE4DB8176D46CF00089BBC /* InfoPlist.strings */,
 				2BBE4DBB176D46CF00089BBC /* main.m */,
@@ -198,6 +207,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
+				de,
 			);
 			mainGroup = 2BBE4DA3176D46CF00089BBC;
 			productRefGroup = 2BBE4DAD176D46CF00089BBC /* Products */;
@@ -218,10 +229,11 @@
 				2BBE4DC2176D46CF00089BBC /* Default.png in Resources */,
 				2BBE4DC4176D46CF00089BBC /* Default@2x.png in Resources */,
 				2BBE4DC6176D46CF00089BBC /* Default-568h@2x.png in Resources */,
-				2B1E1250176E63BD007D6200 /* DetailView.xib in Resources */,
+				2BE308E317CA6FE200385249 /* DetailView.xib in Resources */,
 				2BEAFEE31773C01800D7897A /* ItemCell.xib in Resources */,
 				2B92E7BC1775181400232B5C /* ImageView.xib in Resources */,
 				2B32FA6617C987C700F89E63 /* AddAssetTypeViewController.xib in Resources */,
+				2BE308EA17CA755D00385249 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,8 +266,30 @@
 			isa = PBXVariantGroup;
 			children = (
 				2BBE4DB9176D46CF00089BBC /* en */,
+				2BE308E717CA716F00385249 /* es */,
+				2BE308F017CA75B600385249 /* de */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2BE308E517CA6FE200385249 /* DetailView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2BE308E417CA6FE200385249 /* en */,
+				2BE308E617CA716F00385249 /* es */,
+				2BE308EE17CA75B600385249 /* de */,
+			);
+			name = DetailView.xib;
+			sourceTree = "<group>";
+		};
+		2BE308EC17CA755D00385249 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2BE308EB17CA755D00385249 /* en */,
+				2BE308ED17CA756300385249 /* es */,
+				2BE308EF17CA75B600385249 /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
