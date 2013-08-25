@@ -10,6 +10,8 @@
 #import "MapPoint.h"
 
 NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
+NSString *const WhereAmILatitudePrefKey = @"WhereAmILatitudePrefKey";
+NSString *const WhereAmILongitudePrefKey = @"WhereAmILongitudePrefKey";
 
 @interface WhereamiViewController()
 
@@ -21,10 +23,27 @@ NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
 @synthesize locationTitleField = _locationTitleField;
 @synthesize worldView = _worldView;
 
++ (void)saveToDefaultsWithLatitude:(CLLocationDegrees)latitude andLongitude:(CLLocationDegrees)longitude
+{
+    DLog(@"Saving to defaults: %f, %f", latitude, longitude);
+    [[NSUserDefaults standardUserDefaults] setDouble: latitude
+                                              forKey: WhereAmILatitudePrefKey];
+    
+    [[NSUserDefaults standardUserDefaults] setDouble: longitude
+                                              forKey: WhereAmILongitudePrefKey];
+}
+
 + (void)initialize
 {
-    NSDictionary *defaults = @{ WhereAmIMapTypePrefKey: [NSNumber numberWithInt: 1] };
-    [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
+    NSDictionary *maptype = @{ WhereAmIMapTypePrefKey: [NSNumber numberWithInt: 1] };
+    [[NSUserDefaults standardUserDefaults] registerDefaults: maptype];
+    
+    CLLocationDegrees latitude = 51.509980;
+    CLLocationDegrees longitude = -0.133700;
+    
+    NSDictionary *location = @{ WhereAmILatitudePrefKey: [NSNumber numberWithDouble: latitude],
+                                WhereAmILongitudePrefKey: [NSNumber numberWithDouble: longitude]};
+    [[NSUserDefaults standardUserDefaults] registerDefaults: location];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -69,9 +88,18 @@ NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
     return [dateFormatter stringFromDate: date];
 }
 
+- (void)zoomToPoint:(CLLocationCoordinate2D)coord
+{
+    DLog(@"Zooming to Point: %f, %f", coord.latitude, coord.longitude);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coord, 250, 250);
+    [self.worldView setRegion: region animated: YES];
+}
+
 - (void)foundLocation:(CLLocation *)loc
 {
     CLLocationCoordinate2D coord = [loc coordinate];
+    
+    [WhereamiViewController saveToDefaultsWithLatitude: coord.latitude andLongitude: coord.longitude];
     
     NSString *annotationTitle = [self.locationTitleField.text stringByAppendingFormat: @" - %@", [self dateToday]];
     
@@ -80,9 +108,7 @@ NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
     
     [self.worldView addAnnotation: point];
     
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coord, 250, 250);
-    
-    [self.worldView setRegion: region animated: YES];
+    [self zoomToPoint:coord];
     
     [self resetUI];
 }
@@ -117,6 +143,13 @@ NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
     
     [self.mapTypeSegmentedControl setSelectedSegmentIndex: mapTypeValue];
     [self mapTypeChanged: self.mapTypeSegmentedControl];
+    
+    CLLocationDegrees latitude = [[NSUserDefaults standardUserDefaults] doubleForKey: WhereAmILatitudePrefKey];
+    CLLocationDegrees longitude = [[NSUserDefaults standardUserDefaults] doubleForKey: WhereAmILongitudePrefKey];
+    
+    CLLocation *location = [[CLLocation alloc] initWithLatitude: latitude longitude: longitude];
+    
+    [self zoomToPoint: location.coordinate];
 }
 
 - (void)nilUnsafeUnretainedObjects
@@ -141,6 +174,7 @@ NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
 
 - (void)didUpdateLocation:(CLLocation *)location
 {
+    DLog();
     NSTimeInterval t = [[location timestamp] timeIntervalSinceNow];
     
     if (t < -180){
@@ -183,8 +217,7 @@ NSString *const WhereAmIMapTypePrefKey = @"WhereAmIMapTypePrefKey";
 {
     CLLocationCoordinate2D location = [userLocation coordinate];
     DLog(@"Latitude: %f Longitude: %f", location.latitude, location.longitude );
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 250, 250);
-    [mapView setRegion:region animated:YES];
+    [self zoomToPoint: location];
 }
 
 #pragma mark UITextFieldDelegate
