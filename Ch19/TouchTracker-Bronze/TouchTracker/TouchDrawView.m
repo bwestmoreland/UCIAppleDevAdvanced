@@ -24,7 +24,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         linesInProcess = [NSMutableDictionary dictionary];
-        
         completeLines = [NSMutableArray array];
         
         [self setBackgroundColor: [UIColor whiteColor]];
