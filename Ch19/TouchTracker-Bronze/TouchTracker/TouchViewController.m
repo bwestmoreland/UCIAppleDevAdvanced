@@ -35,7 +35,7 @@
     [self setView: view];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)handleStandardTouches:(NSSet *)touches
 {
     for (UITouch *t in touches){
         if ([t tapCount] > 1) {
@@ -50,6 +50,11 @@
         [newLine setEnd: loc];
         [self.linesInProcess setObject: newLine forKey: key];
     }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self handleStandardTouches:touches];
     [self.view setNeedsDisplay];
 }
 
