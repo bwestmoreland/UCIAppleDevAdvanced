@@ -10,11 +10,6 @@
 #import "TouchDrawView.h"
 #import "Line.h"
 
-@interface TouchViewController()
-
-
-@end
-
 @implementation TouchViewController
 
 - (NSMutableArray *)completeLines

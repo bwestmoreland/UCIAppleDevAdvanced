@@ -10,7 +10,7 @@
 @interface TouchViewController : UIViewController
 <TouchDrawViewDataSource>
 
-@property (copy, nonatomic) NSMutableArray *completeLines;
-@property (copy, nonatomic) NSMutableDictionary *linesInProcess;
+@property (strong, nonatomic) NSMutableArray *completeLines;
+@property (strong, nonatomic) NSMutableDictionary *linesInProcess;
 
 @end

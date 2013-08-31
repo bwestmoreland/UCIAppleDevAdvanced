@@ -11,6 +11,18 @@
 
 @implementation AppDelegate
 
+- (NSString *)lineArchivePath
+{
+    NSArray *documentDirectories =
+    NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                        NSUserDomainMask, YES);
+    
+    // Get one and only document directory from that list
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    
+    return [documentDirectory stringByAppendingPathComponent:@"lines.archive"];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -19,6 +31,32 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    
+    BOOL success = [NSKeyedArchiver archiveRootObject: self.touchViewController.completeLines
+                                               toFile: [self lineArchivePath]];
+    
+    if (success) {
+        NSLog(@"Archived to %@", [self lineArchivePath]);
+    }
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    self.touchViewController.completeLines = [NSKeyedUnarchiver unarchiveObjectWithFile: [self lineArchivePath]];
+}
+
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.touchViewController.completeLines = [NSKeyedUnarchiver unarchiveObjectWithFile: [self lineArchivePath]];
+    
+    return YES;
+}
+
+
+
 
 - (TouchViewController *)touchViewController
 {

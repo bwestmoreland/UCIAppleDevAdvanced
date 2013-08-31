@@ -10,8 +10,8 @@
 
 @protocol TouchDrawViewDataSource <NSObject>
 
-- (NSArray *)completeLines;
-- (NSDictionary *)linesInProcess;
+- (NSMutableArray *)completeLines;
+- (NSMutableDictionary *)linesInProcess;
 
 @end
 

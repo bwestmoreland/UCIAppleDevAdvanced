@@ -25,14 +25,6 @@
     return self;
 }
 
-- (CGFloat)degreeOfAngleFromPoint: (CGPoint)firstPoint toPoint: (CGPoint)secondPoint
-{
-    CGFloat xDiff = secondPoint.x - firstPoint.x;
-    CGFloat yDiff = secondPoint.y - firstPoint.y;
-    
-    return atan2f(yDiff, xDiff) * (180 / M_PI);
-}
-
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -41,15 +33,6 @@
     
     [[UIColor blackColor] set];
     for (Line *line in [self.datasource completeLines]) {
-        
-        CGFloat angle = [self degreeOfAngleFromPoint: [line begin] toPoint: [line end]];
-        
-        UIColor *color = [UIColor colorWithHue: fabs(angle) / 180.0f
-                                    saturation: 1.0f
-                                    brightness: 1.0f
-                                         alpha: 1.0f];
-        
-        [color set];
         
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
