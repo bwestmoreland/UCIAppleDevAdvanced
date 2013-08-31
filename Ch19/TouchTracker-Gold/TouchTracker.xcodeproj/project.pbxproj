@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B88906C17D283580096BE46 /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B88906B17D283580096BE46 /* Circle.m */; };
 		2B9075CE17CD6D6400A0A256 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B9075CD17CD6D6400A0A256 /* UIKit.framework */; };
 		2B9075D017CD6D6400A0A256 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B9075CF17CD6D6400A0A256 /* Foundation.framework */; };
 		2B9075D217CD6D6400A0A256 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B9075D117CD6D6400A0A256 /* CoreGraphics.framework */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B88906A17D283580096BE46 /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
+		2B88906B17D283580096BE46 /* Circle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Circle.m; sourceTree = "<group>"; };
 		2B9075CA17CD6D6400A0A256 /* TouchTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B9075CD17CD6D6400A0A256 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2B9075CF17CD6D6400A0A256 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 			children = (
 				2B9075DC17CD6D6400A0A256 /* AppDelegate.h */,
 				2B9075DD17CD6D6400A0A256 /* AppDelegate.m */,
+				2B88906A17D283580096BE46 /* Circle.h */,
+				2B88906B17D283580096BE46 /* Circle.m */,
 				2B90760217CD6DB700A0A256 /* Line.h */,
 				2B90760317CD6DB700A0A256 /* Line.m */,
 				2B90760517CD6E2600A0A256 /* TouchDrawView.h */,
@@ -281,6 +286,7 @@
 				2B90760417CD6DB700A0A256 /* Line.m in Sources */,
 				2B90760717CD6E2600A0A256 /* TouchDrawView.m in Sources */,
 				2B90760A17CD6E9B00A0A256 /* TouchViewController.m in Sources */,
+				2B88906C17D283580096BE46 /* Circle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +459,7 @@
 				2B9075FE17CD6D6400A0A256 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2B9075FF17CD6D6400A0A256 /* Build configuration list for PBXNativeTarget "TouchTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -461,6 +468,7 @@
 				2B90760117CD6D6400A0A256 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

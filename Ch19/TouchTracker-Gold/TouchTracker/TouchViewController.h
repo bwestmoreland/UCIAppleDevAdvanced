@@ -12,5 +12,7 @@
 
 @property (strong, nonatomic) NSMutableArray *completeLines;
 @property (strong, nonatomic) NSMutableDictionary *linesInProcess;
+@property (strong, nonatomic) NSMutableArray *completeCircles;
+@property (strong, nonatomic) NSMutableDictionary *circlesInProcess;
 
 @end

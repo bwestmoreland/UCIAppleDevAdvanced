@@ -9,6 +9,13 @@
 #import "TouchViewController.h"
 #import "TouchDrawView.h"
 #import "Line.h"
+#import "Circle.h"
+
+@interface TouchViewController()
+
+@property (strong, nonatomic) UIPinchGestureRecognizer *pinch;
+
+@end
 
 @implementation TouchViewController
 
@@ -28,6 +35,32 @@
     return _linesInProcess;
 }
 
+- (NSMutableArray *)completeCircles
+{
+    if (!_completeCircles) {
+        _completeCircles = [NSMutableArray array];
+    }
+    return _completeCircles;
+}
+
+- (NSMutableDictionary *)circlesInProcess
+{
+    if (!_circlesInProcess){
+        _circlesInProcess = [NSMutableDictionary dictionary];
+    }
+    return _circlesInProcess;
+}
+
+
+- (UIPinchGestureRecognizer *)pinch
+{
+    if (!_pinch){
+        _pinch = [[UIPinchGestureRecognizer alloc] initWithTarget: self
+                                                           action: @selector(handlePinchGestureTouches:)];
+    }
+    return _pinch;
+}
+
 - (void)loadView
 {
     TouchDrawView *view = [[TouchDrawView alloc] initWithFrame:CGRectZero];
@@ -35,7 +68,38 @@
     [self setView: view];
 }
 
-- (void)handleStandardTouches:(NSSet *)touches
+- (void)viewDidLoad
+{
+    [self.view addGestureRecognizer: self.pinch];
+}
+
+- (void)handlePinchGestureTouches: (UIPinchGestureRecognizer *)sender
+{
+    CGPoint firstTouch = [self.pinch locationOfTouch: 0 inView: self.view];
+    CGPoint secondTouch = [self.pinch locationOfTouch: 1 inView: self.view];
+    CGPoint center = [self.pinch locationInView: self.view];
+    
+    
+    Circle *newCircle = [[Circle alloc] init];
+    newCircle.begin = firstTouch;
+    newCircle.end = secondTouch;
+    newCircle.center = center;
+    NSValue *key = [NSValue valueWithNonretainedObject: self.pinch];
+    
+    if ([sender state] == UIGestureRecognizerStateBegan ||
+        [sender state] == UIGestureRecognizerStateChanged) {
+        
+        self.circlesInProcess[key] = newCircle;
+    }
+    else if ([sender state] == UIGestureRecognizerStateEnded ){
+        [self.completeCircles addObject: self.circlesInProcess[key]];
+        [self.circlesInProcess removeObjectForKey: key];
+    }
+    
+    [self.view setNeedsDisplay];
+}
+
+- (void)beginStandardTouches:(NSSet *)touches
 {
     for (UITouch *t in touches){
         if ([t tapCount] > 1) {
@@ -54,7 +118,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self handleStandardTouches:touches];
+    [self beginStandardTouches:touches];
     [self.view setNeedsDisplay];
 }
 
@@ -99,6 +163,8 @@
 {
     [self.linesInProcess removeAllObjects];
     [self.completeLines removeAllObjects];
+    [self.circlesInProcess removeAllObjects];
+    [self.completeCircles removeAllObjects];
     
     [self.view setNeedsDisplay];
 }

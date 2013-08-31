@@ -12,6 +12,8 @@
 
 - (NSMutableArray *)completeLines;
 - (NSMutableDictionary *)linesInProcess;
+- (NSMutableDictionary *)circlesInProcess;
+- (NSMutableArray *)completeCircles;
 
 @end
 

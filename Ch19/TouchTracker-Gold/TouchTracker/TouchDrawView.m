@@ -8,6 +8,7 @@
 
 #import "TouchDrawView.h"
 #import "Line.h"
+#import "Circle.h"
 
 @interface TouchDrawView()
 
@@ -39,12 +40,23 @@
         CGContextStrokePath(context);
     }
     
+    for (Circle *circle in [self.datasource completeCircles]) {
+        CGContextStrokeEllipseInRect(context, circle.boundingBox);
+    }
+    
     [[UIColor redColor] set];
     for (NSValue *v in [self.datasource linesInProcess]){
         
         Line *line = [[self.datasource linesInProcess] objectForKey: v];
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
+        CGContextStrokePath(context);
+    }
+    
+    [[UIColor blueColor] set];
+    for (NSValue *v in [self.datasource circlesInProcess]){
+        Circle *circle = [[self.datasource circlesInProcess] objectForKey: v];
+        CGContextAddEllipseInRect(context, circle.boundingBox);
         CGContextStrokePath(context);
     }
     

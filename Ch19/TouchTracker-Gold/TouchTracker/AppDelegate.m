@@ -17,7 +17,6 @@
     NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                         NSUserDomainMask, YES);
     
-    // Get one and only document directory from that list
     NSString *documentDirectory = [documentDirectories objectAtIndex:0];
     
     return [documentDirectory stringByAppendingPathComponent:@"lines.archive"];
@@ -38,8 +37,8 @@
     BOOL success = [NSKeyedArchiver archiveRootObject: self.touchViewController.completeLines
                                                toFile: [self lineArchivePath]];
     
-    if (success) {
-        NSLog(@"Archived to %@", [self lineArchivePath]);
+    if (!success) {
+        NSLog(@"FAIL! %@", [self lineArchivePath]);
     }
 }
 
