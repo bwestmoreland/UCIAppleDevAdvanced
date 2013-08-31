@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Brent Westmoreland. All rights reserved.
 //
 
-@interface Line : NSObject
+@interface Line : NSObject <NSCoding>
 
 @property (nonatomic) CGPoint begin;
 @property (nonatomic) CGPoint end;

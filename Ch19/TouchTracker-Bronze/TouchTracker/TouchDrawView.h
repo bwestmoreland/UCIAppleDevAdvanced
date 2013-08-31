@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TouchDrawViewDataSource <NSObject>
+
+- (NSArray *)completeLines;
+- (NSDictionary *)linesInProcess;
+
+@end
+
 @interface TouchDrawView : UIView
 
-- (void)clearAll;
+@property (nonatomic, weak) id <TouchDrawViewDataSource> datasource;
 
 @end

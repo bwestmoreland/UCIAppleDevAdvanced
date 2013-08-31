@@ -10,10 +10,6 @@
 #import "Line.h"
 
 @interface TouchDrawView()
-{
-    NSMutableDictionary *linesInProcess;
-    NSMutableArray *completeLines;
-}
 
 @end
 
@@ -23,13 +19,18 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        linesInProcess = [NSMutableDictionary dictionary];
-        completeLines = [NSMutableArray array];
-        
         [self setBackgroundColor: [UIColor whiteColor]];
         [self setMultipleTouchEnabled: YES];
     }
     return self;
+}
+
+- (CGFloat)degreeOfAngleFromPoint: (CGPoint)firstPoint toPoint: (CGPoint)secondPoint
+{
+    CGFloat xDiff = secondPoint.x - firstPoint.x;
+    CGFloat yDiff = secondPoint.y - firstPoint.y;
+    
+    return atan2f(yDiff, xDiff) * (180 / M_PI);
 }
 
 - (void)drawRect:(CGRect)rect
@@ -39,83 +40,28 @@
     CGContextSetLineCap(context, kCGLineCapRound);
     
     [[UIColor blackColor] set];
-    for (Line *line in completeLines) {
+    for (Line *line in [self.datasource completeLines]) {
+        
+        CGFloat angle = [self degreeOfAngleFromPoint: [line begin] toPoint: [line end]];
+        
+        UIColor *color = [UIColor colorWithHue: fabs(angle) / 180.0f saturation: 1.0f brightness: 1.0f alpha: 1.0f];
+        
+        [color set];
+        
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
-        
         CGContextStrokePath(context);
     }
     
     [[UIColor redColor] set];
-    for (NSValue *v in linesInProcess){
-        Line *line = [linesInProcess objectForKey: v];
+    for (NSValue *v in [self.datasource linesInProcess]){
+        
+        Line *line = [[self.datasource linesInProcess] objectForKey: v];
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
         CGContextStrokePath(context);
     }
     
-}
-
-- (void)clearAll
-{
-    [linesInProcess removeAllObjects];
-    [completeLines removeAllObjects];
-    
-    [self setNeedsDisplay];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    for (UITouch *t in touches){
-        if ([t tapCount] > 1) {
-            [self clearAll];
-            return;
-        }
-        NSValue *key = [NSValue valueWithNonretainedObject: t];
-        
-        CGPoint loc = [t locationInView: self];
-        Line *newLine = [[Line alloc] init];
-        [newLine setBegin: loc];
-        [newLine setEnd: loc];
-        [linesInProcess setObject: newLine forKey: key];
-    }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    for (UITouch *t in touches){
-        NSValue *key = [NSValue valueWithNonretainedObject: t];
-        
-        Line *line = [linesInProcess objectForKey: key];
-        
-        CGPoint loc = [t locationInView: self];
-        [line setEnd: loc];
-    }
-    [self setNeedsDisplay];
-}
-
-- (void)endTouches: (NSSet *)touches
-{
-    for (UITouch *t in touches) {
-        NSValue *key = [NSValue valueWithNonretainedObject: t];
-        Line *line = [linesInProcess objectForKey: key];
-        
-        if (line){
-            [completeLines addObject: line];
-            [linesInProcess removeObjectForKey: key];
-        }
-    }
-    [self setNeedsDisplay];
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self endTouches: touches];
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self endTouches: touches];
 }
 
 @end
