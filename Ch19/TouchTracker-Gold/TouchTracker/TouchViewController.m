@@ -19,6 +19,8 @@
 
 @implementation TouchViewController
 
+#pragma mark - Lazy Properties
+
 - (NSMutableArray *)completeLines
 {
     if (!_completeLines){
@@ -56,10 +58,12 @@
 {
     if (!_pinch){
         _pinch = [[UIPinchGestureRecognizer alloc] initWithTarget: self
-                                                           action: @selector(handlePinchGestureTouches:)];
+                                                           action: @selector(drawCircleWithGesture:)];
     }
     return _pinch;
 }
+
+#pragma mark - UIViewController View Events
 
 - (void)loadView
 {
@@ -70,34 +74,46 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     [self.view addGestureRecognizer: self.pinch];
 }
 
-- (void)handlePinchGestureTouches: (UIPinchGestureRecognizer *)sender
+#pragma mark - UIPanGestureRecognizer
+
+- (void)manageStateForCircle: (Circle *)circle usingPan: (UIPinchGestureRecognizer *)pinch
 {
-    CGPoint firstTouch = [self.pinch locationOfTouch: 0 inView: self.view];
-    CGPoint secondTouch = [self.pinch locationOfTouch: 1 inView: self.view];
-    CGPoint center = [self.pinch locationInView: self.view];
-    
-    
-    Circle *newCircle = [[Circle alloc] init];
-    newCircle.begin = firstTouch;
-    newCircle.end = secondTouch;
-    newCircle.center = center;
-    NSValue *key = [NSValue valueWithNonretainedObject: self.pinch];
-    
-    if ([sender state] == UIGestureRecognizerStateBegan ||
-        [sender state] == UIGestureRecognizerStateChanged) {
+    NSValue *key = [NSValue valueWithNonretainedObject: pinch];
+    //Pinch is in process
+    if ([pinch state] == UIGestureRecognizerStateBegan ||
+        [pinch state] == UIGestureRecognizerStateChanged) {
         
-        self.circlesInProcess[key] = newCircle;
+        self.circlesInProcess[key] = circle;
     }
-    else if ([sender state] == UIGestureRecognizerStateEnded ){
+    //Pinch is done
+    else if ([pinch state] == UIGestureRecognizerStateEnded ||
+             [pinch state] == UIGestureRecognizerStateCancelled) {
+        
         [self.completeCircles addObject: self.circlesInProcess[key]];
         [self.circlesInProcess removeObjectForKey: key];
     }
+}
+
+- (void)drawCircleWithGesture: (UIPinchGestureRecognizer *)sender
+{
+    CGPoint firstTouch = [sender locationOfTouch: 0 inView: self.view];
+    CGPoint secondTouch = [sender locationOfTouch: 1 inView: self.view];
+    CGPoint center = [sender locationInView: self.view];
+    
+    Circle *newCircle = [[Circle alloc] initWithBeginning: firstTouch
+                                                      end: secondTouch
+                                                   center: center];
+    
+    [self manageStateForCircle: newCircle usingPan: sender];
     
     [self.view setNeedsDisplay];
 }
+
+#pragma mark - UIResponder
 
 - (void)beginStandardTouches:(NSSet *)touches
 {

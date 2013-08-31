@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface Circle : NSObject
+<NSCoding>
 
 @property (nonatomic) CGRect boundingBox;
-@property (nonatomic) CGPoint begin;
-@property (nonatomic) CGPoint end;
-@property (nonatomic) CGPoint center;
+
+- (id)initWithBeginning: (CGPoint)begin
+                    end: (CGPoint)end
+                 center: (CGPoint)center;
 
 @end
