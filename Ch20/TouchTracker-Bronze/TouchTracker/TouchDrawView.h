@@ -11,11 +11,7 @@
 @class Line;
 @interface TouchDrawView : UIView 
     <UIGestureRecognizerDelegate>
-{
-    NSMutableDictionary *linesInProcess;
-    NSMutableArray *completeLines;
-    UIPanGestureRecognizer *moveRecognizer;
-}
+
 - (void)clearAll;
 - (void)endTouches:(NSSet *)touches;
 

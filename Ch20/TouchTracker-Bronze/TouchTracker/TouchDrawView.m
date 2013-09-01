@@ -9,6 +9,15 @@
 #import "TouchDrawView.h"
 #import "Line.h"
 
+@interface TouchDrawView()
+{
+    NSMutableDictionary *linesInProcess;
+    NSMutableArray *completeLines;
+    UIPanGestureRecognizer *moveRecognizer;
+}
+
+@end
+
 @implementation TouchDrawView
 
 - (id)initWithFrame:(CGRect)r
