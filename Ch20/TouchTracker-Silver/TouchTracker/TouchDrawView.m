@@ -51,11 +51,6 @@
         [pan setCancelsTouchesInView: NO];
         [self addGestureRecognizer: pan];
         
-        tap = [[UITapGestureRecognizer alloc] initWithTarget: self
-                                                      action: @selector(doubleTap:)];
-        
-        tap.numberOfTapsRequired = 2;
-        [self addGestureRecognizer: tap];
     }
     
     return self;
@@ -98,21 +93,16 @@
     return NO;
 }
 
-- (void)doubleTap: (UITapGestureRecognizer *)tap
-{
-    [self clearAll];
-}
-
 - (void)longPress:(UIGestureRecognizer *)gr
 {
     if([gr state] == UIGestureRecognizerStateBegan) {
-        CGPoint point = [gr locationInView:self];
-        [self setSelectedLine:[self lineAtPoint:point]];
+        CGPoint point = [gr locationInView: self];
+        [self setSelectedLine: [self lineAtPoint: point]];
         if([self selectedLine]) {    
             [linesInProcess removeAllObjects];
         }
     } else if([gr state] == UIGestureRecognizerStateEnded) {
-        [self setSelectedLine:nil];
+        [self setSelectedLine: nil];
     }
     [self setNeedsDisplay];
 }
@@ -129,10 +119,10 @@
         UIMenuController *menu = [UIMenuController sharedMenuController];
         UIMenuItem *deleteItem = [[UIMenuItem alloc] initWithTitle: @"Delete"
                                                             action: @selector(deleteLine:)];
-        [menu setMenuItems:[NSArray arrayWithObject:deleteItem]];
+        [menu setMenuItems: [NSArray arrayWithObject: deleteItem]];
         [menu setTargetRect: CGRectMake(point.x, point.y, 2, 2)
                      inView: self];
-        [menu setMenuVisible:YES animated:YES];
+        [menu setMenuVisible: YES animated: YES];
     } else {
         [[UIMenuController sharedMenuController] setMenuVisible: NO
                                                        animated: YES];
@@ -166,7 +156,16 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
+    self.selectedLine = nil;
+    [[UIMenuController sharedMenuController] setMenuVisible: NO
+                                                   animated: YES];
+    
     for (UITouch *t in touches) {
+        
+        if ([t tapCount] > 1) {
+            [self clearAll];
+            return;
+        }
 
         NSValue *key = [NSValue valueWithNonretainedObject:t];
 
