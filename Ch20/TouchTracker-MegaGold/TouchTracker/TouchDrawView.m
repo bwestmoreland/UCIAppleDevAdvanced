@@ -240,7 +240,9 @@
 - (void)touchesMoved:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
-    
+    if (touches.count == 3){
+        return;
+    }
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
 
@@ -254,6 +256,7 @@
 
 - (void)endTouches:(NSSet *)touches
 {
+    
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
         Line *line = [linesInProcess objectForKey:key];
