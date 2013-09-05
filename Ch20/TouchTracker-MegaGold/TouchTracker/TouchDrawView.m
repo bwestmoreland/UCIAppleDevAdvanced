@@ -7,6 +7,7 @@
 //
 
 #import "TouchDrawView.h"
+#import "ColorSelectionView.h"
 #import "Line.h"
 
 @interface TouchDrawView()
@@ -15,8 +16,11 @@
     NSMutableArray *completeLines;
     UIPanGestureRecognizer *pan;
     UITapGestureRecognizer *tap;
-    UISwipeGestureRecognizer *swipe;
+    UISwipeGestureRecognizer *upSwipe;
+    UISwipeGestureRecognizer *downSwipe;
 }
+
+@property (nonatomic, strong) ColorSelectionView *colorSelectionView;
 
 @end
 
@@ -52,11 +56,19 @@
         [pan setCancelsTouchesInView: NO];
         [self addGestureRecognizer: pan];
         
-        swipe = [[UISwipeGestureRecognizer alloc] initWithTarget: self
+        upSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget: self
                                                           action: @selector(showColorSelector:)];
-        swipe.numberOfTouchesRequired = 3;
-        swipe.direction = UISwipeGestureRecognizerDirectionUp;
-        [self addGestureRecognizer: swipe];
+        upSwipe.numberOfTouchesRequired = 3;
+        upSwipe.direction = UISwipeGestureRecognizerDirectionUp;
+        upSwipe.delegate = self;
+        [self addGestureRecognizer: upSwipe];
+        
+        downSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget: self
+                                                              action: @selector(hideColorSelector:)];
+        downSwipe.numberOfTouchesRequired = 3;
+        downSwipe.direction = UISwipeGestureRecognizerDirectionDown;
+        downSwipe.delegate = self;
+        [self addGestureRecognizer: downSwipe];
         
     }
     
@@ -102,7 +114,24 @@
 
 - (void)showColorSelector: (UISwipeGestureRecognizer *)swipe
 {
+    [self colorSelectionView];
     
+    [UIView animateWithDuration: 0.5
+                     animations:^{
+                         [self.colorSelectionView setFrame: CGRectOffset(self.colorSelectionView.frame, 0, -64.0) ];
+                     
+                     }];
+}
+
+- (void)hideColorSelector: (UISwipeGestureRecognizer *)swipe
+{
+    [UIView animateWithDuration: 0.5
+                     animations:^{
+                         [self.colorSelectionView setFrame: CGRectOffset(self.colorSelectionView.frame, 0, 64.0)];
+                     }
+                     completion:^(BOOL finished) {
+                         self.colorSelectionView = nil;
+                     }];
 }
 
 - (void)longPress:(UIGestureRecognizer *)gr
@@ -148,6 +177,18 @@
     return YES;
 }
 
+- (ColorSelectionView *)colorSelectionView
+{
+    if (!_colorSelectionView) {
+        CGSize size = CGSizeMake(self.bounds.size.width, 64.0);
+        CGPoint origin = CGPointMake(0, self.bounds.size.height);
+        CGRect frame = CGRectMake(origin.x, origin.y, size.width, size.height);
+        _colorSelectionView = [[ColorSelectionView alloc] initWithFrame: frame];
+        [self addSubview: _colorSelectionView];
+    }
+    return _colorSelectionView;
+}
+
 - (Line *)lineAtPoint: (CGPoint)p
 {    
     for(Line *l in completeLines) {
@@ -172,6 +213,11 @@
     [[UIMenuController sharedMenuController] setMenuVisible: NO
                                                    animated: YES];
     
+    if (touches.count == 3) {
+        return;
+    }
+    
+    
     for (UITouch *t in touches) {
         
         if ([t tapCount] > 1) {
@@ -183,6 +229,7 @@
 
         CGPoint loc = [t locationInView:self];
         Line *newLine = [[Line alloc] init];
+        newLine.color = self.colorSelectionView.selectedColor;
         [newLine setBegin:loc];
         [newLine setEnd:loc];
 
@@ -193,6 +240,7 @@
 - (void)touchesMoved:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
+    
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
 
@@ -244,6 +292,7 @@
 
     [[UIColor blackColor] set];
     for (Line *line in completeLines) {
+        [line.color set];
         CGContextMoveToPoint(context, [line begin].x, [line begin].y);
         CGContextAddLineToPoint(context, [line end].x, [line end].y);
         CGContextStrokePath(context);
