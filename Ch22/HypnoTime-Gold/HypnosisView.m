@@ -12,7 +12,7 @@
 @interface HypnosisView()
 
 @property (nonatomic, strong) CALayer *boxLayer;
-@property (nonatomic, strong) CALayer *boxSubLayer;
+@property (nonatomic, strong) CALayer *shadowLayer;
 
 @end
 
@@ -40,21 +40,25 @@
         [self.boxLayer setContents: (__bridge id)image];
         [self.boxLayer setContentsRect: CGRectMake( -0.1, -0.1, 1.2, 1.2)];
         [self.boxLayer setContentsGravity: kCAGravityResizeAspect];
+        [self.boxLayer setShadowColor: [UIColor blackColor].CGColor];
+        [self.boxLayer setShadowOpacity: 5.0];
         
-        [self setBoxSubLayer: [CALayer layer]];
-        [self.boxSubLayer setBounds: CGRectInset(self.boxLayer.bounds,
-                                                 CGRectGetWidth(self.boxLayer.bounds) / 4,
-                                                 CGRectGetHeight(self.boxLayer.bounds) / 4)];
         
-        [self.boxSubLayer setPosition: CGPointMake(CGRectGetWidth(self.boxLayer.bounds) / 2,
-                                                   CGRectGetHeight(self.boxLayer.bounds) / 2)];
-
-        
-        UIImage *layerSubImage = [UIImage imageNamed: @"Time"];
-        CGImageRef subImage = [layerSubImage CGImage];
-        [self.boxSubLayer setContents: (__bridge  id)subImage];
-        [self.boxLayer addSublayer: self.boxSubLayer];
-        
+        UIBezierPath *shadowPath = [UIBezierPath bezierPath];
+        [shadowPath moveToPoint: CGPointMake(CGRectGetMaxX(self.boxLayer.bounds),
+                                             CGRectGetMinY(self.boxLayer.bounds) + 5.)];
+        [shadowPath addLineToPoint:CGPointMake(CGRectGetMaxX(self.boxLayer.bounds),
+                                               CGRectGetMaxY(self.boxLayer.bounds))];
+        [shadowPath addLineToPoint:CGPointMake(CGRectGetMinX(self.boxLayer.bounds),
+                                               CGRectGetMaxY(self.boxLayer.bounds))];
+        [shadowPath addLineToPoint:CGPointMake(CGRectGetMinX(self.boxLayer.bounds),
+                                               CGRectGetMaxY(self.boxLayer.bounds) + 4.)];
+        [shadowPath addLineToPoint:CGPointMake(CGRectGetMaxX(self.boxLayer.bounds) + 4.,
+                                               CGRectGetMaxY(self.boxLayer.bounds) + 4.)];
+        [shadowPath addLineToPoint:CGPointMake(CGRectGetMaxX(self.boxLayer.bounds) + 4.,
+                                               CGRectGetMinY(self.boxLayer.bounds) + 5.)];
+        [shadowPath closePath];
+        [self.boxLayer setShadowPath: shadowPath.CGPath];
         
         
         [[self layer] addSublayer: self.boxLayer];

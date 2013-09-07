@@ -12,7 +12,6 @@
 @interface HypnosisView()
 
 @property (nonatomic, strong) CALayer *boxLayer;
-@property (nonatomic, strong) CALayer *boxSubLayer;
 
 @end
 
@@ -40,21 +39,7 @@
         [self.boxLayer setContents: (__bridge id)image];
         [self.boxLayer setContentsRect: CGRectMake( -0.1, -0.1, 1.2, 1.2)];
         [self.boxLayer setContentsGravity: kCAGravityResizeAspect];
-        
-        [self setBoxSubLayer: [CALayer layer]];
-        [self.boxSubLayer setBounds: CGRectInset(self.boxLayer.bounds,
-                                                 CGRectGetWidth(self.boxLayer.bounds) / 4,
-                                                 CGRectGetHeight(self.boxLayer.bounds) / 4)];
-        
-        [self.boxSubLayer setPosition: CGPointMake(CGRectGetWidth(self.boxLayer.bounds) / 2,
-                                                   CGRectGetHeight(self.boxLayer.bounds) / 2)];
-
-        
-        UIImage *layerSubImage = [UIImage imageNamed: @"Time"];
-        CGImageRef subImage = [layerSubImage CGImage];
-        [self.boxSubLayer setContents: (__bridge  id)subImage];
-        [self.boxLayer addSublayer: self.boxSubLayer];
-        
+        [self.boxLayer setCornerRadius: 5.0f];
         
         
         [[self layer] addSublayer: self.boxLayer];
