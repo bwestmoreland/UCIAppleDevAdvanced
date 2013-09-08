@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B9974DF17DD08A6000A7AC2 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9974DE17DD08A6000A7AC2 /* WebViewController.m */; };
+		2B9974E217DD0C20000A7AC2 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9974E117DD0C20000A7AC2 /* ItemCell.m */; };
+		2B9974E417DD0C7D000A7AC2 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B9974E317DD0C7D000A7AC2 /* ItemCell.xib */; };
 		2BCD0A7C17DCEFC400F07DC2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCD0A7B17DCEFC400F07DC2 /* UIKit.framework */; };
 		2BCD0A7E17DCEFC400F07DC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCD0A7D17DCEFC400F07DC2 /* Foundation.framework */; };
 		2BCD0A8017DCEFC400F07DC2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCD0A7F17DCEFC400F07DC2 /* CoreGraphics.framework */; };
@@ -25,6 +27,9 @@
 /* Begin PBXFileReference section */
 		2B9974DD17DD08A6000A7AC2 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		2B9974DE17DD08A6000A7AC2 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		2B9974E017DD0C20000A7AC2 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
+		2B9974E117DD0C20000A7AC2 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
+		2B9974E317DD0C7D000A7AC2 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		2BCD0A7817DCEFC400F07DC2 /* Nerdfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nerdfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCD0A7B17DCEFC400F07DC2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2BCD0A7D17DCEFC400F07DC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -100,6 +105,9 @@
 				2BCD0A9C17DCF66400F07DC2 /* RSSChannel.m */,
 				2BFD474A17DCFFDC006DE55D /* RSSItem.h */,
 				2BFD474B17DCFFDC006DE55D /* RSSItem.m */,
+				2B9974E017DD0C20000A7AC2 /* ItemCell.h */,
+				2B9974E117DD0C20000A7AC2 /* ItemCell.m */,
+				2B9974E317DD0C7D000A7AC2 /* ItemCell.xib */,
 				2BCD0A8217DCEFC400F07DC2 /* Supporting Files */,
 			);
 			path = Nerdfeed;
@@ -174,6 +182,7 @@
 				2BCD0A8E17DCEFC400F07DC2 /* Default.png in Resources */,
 				2BCD0A9017DCEFC400F07DC2 /* Default@2x.png in Resources */,
 				2BCD0A9217DCEFC400F07DC2 /* Default-568h@2x.png in Resources */,
+				2B9974E417DD0C7D000A7AC2 /* ItemCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +199,7 @@
 				2BCD0A9D17DCF66400F07DC2 /* RSSChannel.m in Sources */,
 				2BFD474C17DCFFDC006DE55D /* RSSItem.m in Sources */,
 				2B9974DF17DD08A6000A7AC2 /* WebViewController.m in Sources */,
+				2B9974E217DD0C20000A7AC2 /* ItemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@
 #import "RSSChannel.h"
 #import "RSSItem.h"
 #import "WebViewController.h"
+#import "ItemCell.h"
 
 @interface ListViewController()
 <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSXMLParserDelegate>
@@ -47,8 +48,8 @@
 
 - (void)viewDidLoad
 {
-    [self.tableView registerClass: [UITableViewCell class]
-           forCellReuseIdentifier: @"UITableViewCell"];
+    [self.tableView registerNib: [UINib nibWithNibName:@"ItemCell" bundle: nil]
+         forCellReuseIdentifier: @"ItemCell"];
 }
 
 #pragma mark - UITableViewDataSource
@@ -61,13 +62,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"UITableViewCell"];
+    ItemCell *cell = [tableView dequeueReusableCellWithIdentifier: @"ItemCell"];
     
     RSSItem *item = channel.items[indexPath.row];
     
-    cell.textLabel.text = item.title;
+    cell.titleLabel.text = item.title;
+    cell.linkLabel.text = item.link;
+    cell.pubDateLabel.text = item.pubDate;
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 135.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

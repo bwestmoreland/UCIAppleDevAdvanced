@@ -33,6 +33,10 @@ didStartElement:(NSString *)elementName
         currentString = [NSMutableString string];
         self.link = currentString;
     }
+    else if ([elementName isEqual: @"pubDate"]){
+        currentString = [NSMutableString string];
+        self.pubDate = currentString;
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
