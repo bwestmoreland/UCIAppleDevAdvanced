@@ -9,6 +9,7 @@
 @interface TimeViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *whatTimeButton;
 
 - (IBAction)showCurrentTime:(UIButton *)sender;
 

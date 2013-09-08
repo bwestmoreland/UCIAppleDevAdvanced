@@ -24,6 +24,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CGRect original = self.whatTimeButton.frame;
+    [self.whatTimeButton setFrame: CGRectOffset(original, -200.0, 0)];
+    
+    //I cheated and used a UIView animation instead of setting the layer's position.
+    [UIView animateWithDuration: 0.6
+                     animations:^{
+                         [self.whatTimeButton setFrame: original];
+                     }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,18 +92,9 @@
     
     [bounce setDuration: 0.6];
     
-    CAKeyframeAnimation *opacity = [CAKeyframeAnimation animationWithKeyPath: @"opacity"];
-    
-    [opacity setValues: @[ @1.0, @0.3, @1.0, @0.2, @1.0, @0.3, @1.0]];
-    
-    [opacity setDuration: 0.6];
-     
-    
     
     [[self.timeLabel layer] addAnimation: bounce
                                   forKey: @"bounceAnimation"];
-    [[self.timeLabel layer] addAnimation: opacity
-                                  forKey: @"opacityAnimation"];
     
 }
 
