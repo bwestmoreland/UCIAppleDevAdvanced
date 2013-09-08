@@ -33,8 +33,6 @@ typedef enum {
     [super viewDidLoad];
     
     [self colorChosen: self.segmentedControl];
-    
-    DLog(@"%@ Loaded", NSStringFromClass([self class]));
 }
 
 - (IBAction)colorChosen:(UISegmentedControl *)sender

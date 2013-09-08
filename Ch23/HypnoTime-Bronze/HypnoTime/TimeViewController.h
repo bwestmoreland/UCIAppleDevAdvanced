@@ -12,4 +12,6 @@
 
 - (IBAction)showCurrentTime:(UIButton *)sender;
 
+- (void)spinTimeLabel;
+
 @end

@@ -39,8 +39,9 @@
 					<object class="IBUILabel" id="657031321">
 						<reference key="NSNextResponder" ref="526678986"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 20}, {280, 21}}</string>
+						<string key="NSFrame">{{20, 168}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="526678986"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="359396346"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -70,8 +71,9 @@
 					<object class="IBUIButton" id="359396346">
 						<reference key="NSNextResponder" ref="526678986"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{93, 49}, {135, 44}}</string>
+						<string key="NSFrame">{{93, 252}, {135, 44}}</string>
 						<reference key="NSSuperview" ref="526678986"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -104,6 +106,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="657031321"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -184,8 +187,8 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="526678986"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="657031321"/>
 							<reference ref="359396346"/>
+							<reference ref="657031321"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -216,7 +219,40 @@
 			<nil key="sourceID"/>
 			<int key="maxID">9</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">TimeViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">showCurrentTime:</string>
+						<string key="NS.object.0">UIButton</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">showCurrentTime:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">showCurrentTime:</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">timeLabel</string>
+						<string key="NS.object.0">UILabel</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">timeLabel</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">timeLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TimeViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
